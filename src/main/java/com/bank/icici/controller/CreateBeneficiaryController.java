@@ -20,7 +20,7 @@ public class CreateBeneficiaryController {
 	@PostMapping(path = "/create", consumes = "application/json")
 	public ResponseEntity<Void> addBeneficiary(@RequestBody Beneficiary beneficiary) {
 
-		System.out.println("***********");
+		System.out.println("***********123");
 		return new ResponseEntity<Void>(HttpStatus.OK);
 
 	}
