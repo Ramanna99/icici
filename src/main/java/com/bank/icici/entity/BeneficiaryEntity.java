@@ -2,7 +2,7 @@ package com.bank.icici.entity;
 
 //@Entity
 public class BeneficiaryEntity {
-	
+
 	/*
 	 * @Id
 	 * 
@@ -11,6 +11,6 @@ public class BeneficiaryEntity {
 	 * 
 	 * @SequenceGenerator(name = "player_Sequence", sequenceName = "PLAYER_SEQ")
 	 */
-    private Long id;
+	private Long id;
 
 }
