@@ -20,7 +20,6 @@ public class CreateBeneficiaryController {
 	@PostMapping(path = "/create", consumes = "application/json")
 	public ResponseEntity<Void> addBeneficiary(@RequestBody Beneficiary beneficiary) {
 
-		//datbase call and save the beneficiary
 		System.out.println("***********");
 		return new ResponseEntity<Void>(HttpStatus.OK);
 
