@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,15 +15,14 @@ import com.bank.icici.bean.Beneficiary;
 
 @RestController
 @RequestMapping(path = "/beneficiaries")
-@ControllerAdvice
 public class CreateBeneficiaryController {
 
 	@PostMapping(path = "/create", consumes = "application/json")
 	public ResponseEntity<Void> addBeneficiary(@RequestBody Beneficiary beneficiary) {
 
-		//datbase call and save the beneficiary
-		System.out.println("***********");
+		System.out.println("***********12366666");
 		return new ResponseEntity<Void>(HttpStatus.OK);
+		
 
 	}
 
