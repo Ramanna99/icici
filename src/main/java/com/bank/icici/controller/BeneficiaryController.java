@@ -44,7 +44,7 @@ public class BeneficiaryController {
 	@PutMapping(path = "/update/{benfId}", produces = "application/json")
 	public Beneficiary updateBeneficiary(@PathParam("benfId") String benfId) {
 
-		System.out.println("Update benfId:" + benfId);
+		System.out.println("Update benfId:   " + benfId);
 		Beneficiary beneficiary = new Beneficiary();
 		beneficiary.setAccountNumber("47548754875");
 		beneficiary.setBankName("HDFC Bank");
