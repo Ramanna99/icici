@@ -2,8 +2,9 @@ package com.bank.icici.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,16 +37,15 @@ public class BeneficiaryController {
 	@PostMapping(path = "/create", consumes = "application/json")
 	public ResponseEntity<Void> addBeneficiary(@RequestBody Beneficiary beneficiary) {
 
-		BeneficiaryEntity beneficiaryEntity = entityMapping.mapBeneficiaryEntity(beneficiary);
-		beneficiaryRepository.save(beneficiaryEntity);
+		beneficiaryRepository.save(entityMapping.mapBeneficiaryEntity(beneficiary));
 		return new ResponseEntity<Void>(HttpStatus.OK);
 
 	}
 
 	@PutMapping(path = "/update/{benfId}", produces = "application/json")
-	public Beneficiary updateBeneficiary(@PathParam("benfId") String benfId) {
+	public Beneficiary updateBeneficiary(@PathVariable("benfId") String benfId) {
 
-		System.out.println("Update benfId:   " + benfId);
+		System.out.println("Update benfId:" + benfId);
 		Beneficiary beneficiary = new Beneficiary();
 		beneficiary.setAccountNumber("47548754875");
 		beneficiary.setBankName("HDFC Bank");
@@ -56,7 +57,7 @@ public class BeneficiaryController {
 	}
 
 	@PatchMapping(path = "/updatePart/{benfId}", produces = "application/json")
-	public Beneficiary updateBeneficiaryPartial(@PathParam("benfId") String benfId) {
+	public Beneficiary updateBeneficiaryPartial(@PathVariable("benfId") String benfId) {
 
 		System.out.println("updatePart benfId:" + benfId);
 		Beneficiary beneficiary = new Beneficiary();
@@ -70,34 +71,33 @@ public class BeneficiaryController {
 	}
 
 	@DeleteMapping(path = "/delete/{benfId}")
-	public ResponseEntity<Beneficiary> deleteBeneficiary(@PathParam("benfId") String benfId) {
-		System.out.println("Delete benfId:" + benfId);
-		Beneficiary beneficiary = new Beneficiary();
-		beneficiary.setAccountNumber("47548754875");
-		beneficiary.setBankName("HDFC Bank");
-		beneficiary.setIfsccode("HDFC0006475");
-		beneficiary.setName("John");
+	public ResponseEntity<String> deleteBeneficiary(@PathVariable("benfId") Long benfId) {
 
-		return new ResponseEntity<Beneficiary>(beneficiary, HttpStatus.OK);
+		Optional<BeneficiaryEntity> beneficiaryEntity = beneficiaryRepository.findById(benfId);
+		if (beneficiaryEntity != null && beneficiaryEntity.get() != null) {
+			beneficiaryRepository.delete(beneficiaryEntity.get());
+			return new ResponseEntity<String>("Successfully deleted with id of :" + benfId, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("Failure", HttpStatus.NOT_FOUND);
+		}
 
 	}
 
 	@GetMapping(path = "/get/{benfId}", produces = "application/json")
-	public ResponseEntity<Beneficiary> getBeneficiary(@PathParam("benfId") String benfId) {
-		System.out.println("Get benfId:" + benfId);
-		Beneficiary beneficiary = new Beneficiary();
-		beneficiary.setAccountNumber("47548754875");
-		beneficiary.setBankName("HDFC Bank");
-		beneficiary.setIfsccode("HDFC0006475");
-		beneficiary.setName("John");
+	public ResponseEntity<String> getBeneficiary(@PathVariable("benfId") Long benfId) {
 
-		return new ResponseEntity<Beneficiary>(beneficiary, HttpStatus.OK);
+		Optional<BeneficiaryEntity> beneficiaryEntity = beneficiaryRepository.findById(benfId);
+		if (beneficiaryEntity != null && beneficiaryEntity.get() != null)
+			return new ResponseEntity<String>("Success", HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("Failure", HttpStatus.NOT_FOUND);
 
 	}
 
 	@GetMapping(path = "/getAll", produces = "application/json")
-	public ResponseEntity<List<Beneficiary>> getAllBeneficiary() {
+	public ResponseEntity<List<Beneficiary>> getAllBeneficiary(@QueryParam("limit") int limit) {
 
+		System.out.println("GetAll query parameter - limit=" + limit);
 		List<Beneficiary> beneficiaryList = new ArrayList();
 		Beneficiary beneficiary1 = new Beneficiary();
 		beneficiary1.setAccountNumber("47548754875");
