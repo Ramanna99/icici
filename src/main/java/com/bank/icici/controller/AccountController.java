@@ -92,4 +92,20 @@ public class AccountController {
 
 		return new ResponseEntity<List<Account>>(accountList, HttpStatus.OK);
 	}
+	@GetMapping(path = "/get", produces = "application/json")
+	public ResponseEntity<Account> getAccount() {
+		Account account1 = new Account();
+		account1.setId("111");
+		account1.setFirstName("V.Ramu");
+		account1.setLastName("Vadde");
+		account1.setBranchName("Bellary");
+		account1.setBankName("Axis Bank");
+		account1.setEmail("vadde.ramu@gmail.com");
+		account1.setIfscCode("SBIN00005566");
+		account1.setMobileNumber("9703566373");
+		account1.setAccountNumber("446242652424");
+		account1.setAmount(50000.09);
+
+		return new ResponseEntity<Account>(account1, HttpStatus.OK);
+}
 }
