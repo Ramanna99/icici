@@ -1,5 +1,6 @@
 package com.bank.icici.controller;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class AccountController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
+
 	@GetMapping(path = "/update", produces = "application/json")
 	public ResponseEntity<Account> getAccount() {
 		Account account = new Account();
@@ -35,5 +37,6 @@ public class AccountController {
 		return new ResponseEntity<Account>(account, HttpStatus.OK);
 
 	}
+
 
 }
